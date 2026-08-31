@@ -6,7 +6,7 @@ import { createDb } from './db';
 import { registerApi } from './routes';
 import { registerSocket } from './socket';
 
-const PORT = Number(process.env.PORT || 3000);
+const PORT = Number(process.env.PORT || 3001);
 const DATA_DIR = process.env.DATA_DIR || resolve(process.cwd(), 'data');
 const DIST_DIR = resolve(process.cwd(), 'dist');
 
