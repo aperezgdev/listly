@@ -188,7 +188,16 @@ export default function Session({ token }: { token: string }) {
   }
 
   async function handleShare() {
-    const url = window.location.href;
+    const url = new URL(`/s/${token}`, window.location.origin).toString();
+    const copyLink = async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        alert('Enlace copiado');
+      } catch {
+        window.prompt('Copia el enlace para compartir la lista:', url);
+      }
+    };
+
     if (navigator.share) {
       try {
         await navigator.share({
@@ -197,15 +206,10 @@ export default function Session({ token }: { token: string }) {
           url,
         });
       } catch {
-        /* cancelado por el usuario */
+        await copyLink();
       }
     } else {
-      try {
-        await navigator.clipboard.writeText(url);
-        alert('Enlace copiado');
-      } catch {
-        /* sin permisos de portapapeles */
-      }
+      await copyLink();
     }
   }
 
