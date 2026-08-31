@@ -31,7 +31,14 @@ npm start
 docker compose up -d --build
 ```
 
-Esto construye la imagen, levanta el contenedor en el puerto `3000` y persiste la base de datos en el volumen `listly-data`.
+Esto construye la imagen, expone la app en `http://localhost:3001` (el contenedor escucha en `3000` internamente) y persiste la base de datos en el volumen `listly-data`.
+
+El puerto de host se configura con la variable `HOST_PORT` (por defecto `3001`):
+
+```bash
+HOST_PORT=8080 docker compose up -d --build   # expone en :8080
+# o crea un archivo .env con: HOST_PORT=8080
+```
 
 ```bash
 docker compose logs -f     # ver logs
