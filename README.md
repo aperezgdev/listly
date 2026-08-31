@@ -25,6 +25,19 @@ npm run build
 npm start
 ```
 
+## Despliegue con Docker Compose
+
+```bash
+docker compose up -d --build
+```
+
+Esto construye la imagen, levanta el contenedor en el puerto `3000` y persiste la base de datos en el volumen `listly-data`.
+
+```bash
+docker compose logs -f     # ver logs
+docker compose down        # parar (conserva el volumen)
+```
+
 ## Despliegue en Dokploy
 
 1. Sube el repo a un Git al que Dokploy tenga acceso.
