@@ -8,9 +8,9 @@ services:
       - dokploy-network
     labels:
       - traefik.enable=true
-      - traefik.http.routers.frontend-app.rule=Host(`listly.aperezg.dev`)
-      - traefik.http.routers.frontend-app.entrypoints=web
-      - traefik.http.services.frontend-app.loadbalancer.server.port=3000
+      - traefik.http.routers.bobin.rule=Host(`listly.aperezg.dev`)
+      - traefik.http.routers.bobin.entrypoints=web
+      - traefik.http.services.bobin.loadbalancer.server.port=3000
     restart: unless-stopped
     ports:
       - "${PORT:-3001}:3000" 
