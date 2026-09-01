@@ -250,6 +250,7 @@ h2 {
   padding: 8px 8px 8px 12px;
   background: var(--card);
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
 .session-title {
@@ -290,6 +291,7 @@ h2 {
   border-bottom: 1px solid var(--border);
   overflow: hidden;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .presence-names {
@@ -302,6 +304,7 @@ h2 {
   gap: 8px;
   padding: 12px 16px;
   background: var(--bg);
+  flex-shrink: 0;
 }
 
 .controls .search {
@@ -310,6 +313,7 @@ h2 {
 
 .items {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   list-style: none;
   margin: 0;
@@ -332,6 +336,7 @@ h2 {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   touch-action: pan-y;
+  flex-shrink: 0;
 }
 
 .item-delete {
@@ -516,6 +521,7 @@ h2 {
 /* ---------- Añadir ---------- */
 .add-bar {
   display: flex;
+  flex-shrink: 0;
   gap: 8px;
   padding: 12px 16px;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
