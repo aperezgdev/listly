@@ -1,11 +1,17 @@
 services:
-  app:
+  listly:
+    build:
+      context: .
     image: listly:latest
-    restart: unless-stopped
-    expose:
-      - "3001"
+    container_name: listly
     networks:
       - dokploy-network
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3001}:3000" 
+    environment:
+      PORT: "3000"
+      DATA_DIR: /data
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.listly.rule=Host(`listly.aperezg.dev`)"
@@ -13,11 +19,12 @@ services:
       - "traefik.http.routers.listly.tls=true"
       - "traefik.http.routers.listly.tls.certresolver=letsencrypt"
       - "traefik.http.services.listly.loadbalancer.server.port=3001"
+    volumes:
+      - listly-data:/data
+
+volumes:
+  listly-data:
 
 networks:
   dokploy-network:
     external: true
-volumes:
-  listly-data:
-    external: true
-    name: listly-app-gmrury_listly-data
