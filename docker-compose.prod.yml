@@ -15,7 +15,7 @@ services:
     ports:
       - "${PORT:-3001}:3000" 
     environment:
-      PORT: "3000"
+      PORT: "3001"
       DATA_DIR: /data
     volumes:
       - listly-data:/data
