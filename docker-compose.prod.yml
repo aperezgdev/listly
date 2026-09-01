@@ -1,0 +1,34 @@
+services:
+  listly:
+    build:
+      context: .
+    image: listly:latest
+    restart: unless-stopped
+    environment:
+      PORT: "3000"
+      DATA_DIR: /data
+    volumes:
+      - listly-data:/data
+    networks:
+      - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dokploy-network
+      - traefik.http.routers.listly.rule=Host(`listly.aperezg.dev`)
+      - traefik.http.routers.listly.entrypoints=websecure
+      - traefik.http.routers.listly.tls=true
+      - traefik.http.routers.listly.tls.certresolver=letsencrypt
+      - traefik.http.services.listly.loadbalancer.server.port=3000
+      - traefik.http.middlewares.listly-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.listly-web.rule=Host(`listly.aperezg.dev`)
+      - traefik.http.routers.listly-web.entrypoints=web
+      - traefik.http.routers.listly-web.middlewares=listly-redirect
+
+networks:
+  dokploy-network:
+    external: true
+
+volumes:
+  listly-data:
+    external: true
+    name: listly-data
