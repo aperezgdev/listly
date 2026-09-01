@@ -6,6 +6,11 @@ services:
     container_name: listly
     networks:
       - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.listly-app.rule=Host(`listly.aperezg.dev`)
+      - traefik.http.routers.listly-app.entrypoints=web
+      - traefik.http.services.listly-app.loadbalancer.server.port=3000
     restart: unless-stopped
     ports:
       - "${PORT:-3001}:3000" 
