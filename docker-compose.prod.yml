@@ -31,4 +31,4 @@ networks:
 volumes:
   listly-data:
     external: true
-    name: listly-data
+    name: listly-app-gmrury_listly-data
