@@ -15,6 +15,8 @@ export default function ItemRow({ item, onUpdate, onDelete, disabled = false }: 
   const [textDraft, setTextDraft] = useState('');
   const [editingPrice, setEditingPrice] = useState(false);
   const [priceDraft, setPriceDraft] = useState('');
+  const [editingQty, setEditingQty] = useState(false);
+  const [qtyDraft, setQtyDraft] = useState('');
   const [dragX, setDragX] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -62,6 +64,28 @@ export default function ItemRow({ item, onUpdate, onDelete, disabled = false }: 
     }
     onUpdate(item.id, { price: value });
     setEditingPrice(false);
+  }
+
+  function startEditQty() {
+    if (disabled) return;
+    if (open) {
+      close();
+      return;
+    }
+    setQtyDraft(String(item.quantity));
+    setEditingQty(true);
+  }
+
+  function commitQty() {
+    const raw = qtyDraft.trim();
+    const value = Number(raw);
+    if (raw === '' || Number.isNaN(value)) {
+      setEditingQty(false);
+      return;
+    }
+    const quantity = Math.max(1, Math.min(999, Math.round(value)));
+    onUpdate(item.id, { quantity });
+    setEditingQty(false);
   }
 
   function onTouchStart(e: React.TouchEvent) {
@@ -148,7 +172,34 @@ export default function ItemRow({ item, onUpdate, onDelete, disabled = false }: 
               >
                 −
               </button>
-              <span className="qty-value">{item.quantity}</span>
+              {editingQty ? (
+                <input
+                  className="qty-input"
+                  type="number"
+                  inputMode="numeric"
+                  min="1"
+                  step="1"
+                  value={qtyDraft}
+                  onChange={(e) => setQtyDraft(e.target.value)}
+                  onBlur={commitQty}
+                  onFocus={(e) => e.target.select()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') commitQty();
+                    if (e.key === 'Escape') setEditingQty(false);
+                  }}
+                  autoFocus
+                />
+              ) : (
+                <button
+                  className="qty-value"
+                  onClick={startEditQty}
+                  disabled={disabled}
+                  aria-label="Editar cantidad"
+                  title="Editar cantidad"
+                >
+                  {item.quantity}
+                </button>
+              )}
               <button
                 className="qty-btn"
                 disabled={disabled}

@@ -459,9 +459,28 @@ h2 {
 
 .qty-value {
   min-width: 22px;
+  height: 30px;
   text-align: center;
   font-weight: 600;
   color: var(--text);
+}
+
+.qty-input {
+  width: 44px;
+  height: 30px;
+  padding: 0 4px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--text);
+}
+
+.qty-input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
 }
 
 .price {
